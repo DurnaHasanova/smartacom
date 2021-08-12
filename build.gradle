@@ -1,0 +1,52 @@
+plugins {
+    id 'org.springframework.boot' version "$springBootVersion"
+    id 'io.spring.dependency-management' version "$springDependencyVersion"
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "$sonarqubeVersion"
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = "$checkstyleToolVersion"
+    configFile = file("${rootProject.projectDir}/checkstyle/checkstyle.xml")
+    ignoreFailures = false
+}
+
+group = 'com.smartauto'
+version = "$projectVersion"
+sourceCompatibility = "$sourceCompatibility"
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.compilerArgs += "-Amapstruct.defaultComponentModel=spring"
+    options.compilerArgs += "-Amapstruct.unmappedTargetPolicy=ERROR"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
+    implementation "io.springfox:springfox-swagger2:$swaggerVersion"
+    implementation "com.oracle.database.jdbc:ojdbc8:$odbcVersion"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:$starterOpenFeign"
+    implementation "io.github.openfeign:feign-okhttp:$okHttpVersion"
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation "org.springframework.boot:spring-boot-starter-validation:$validationVersion"
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: "$mapstructVersion"
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: "$mapstructProcessorVersion"
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: "$starterSleuthVersion"
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin', version: "$starterSleuthZipkin"
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: "$starterOpenFeign"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
