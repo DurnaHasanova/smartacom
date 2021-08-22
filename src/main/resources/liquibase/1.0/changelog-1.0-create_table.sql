@@ -1,0 +1,94 @@
+CREATE TABLE sql11432074.manufacturer
+(
+ID INT NOT NULL AUTO_INCREMENT,
+MANUFACTURER_NAME VARCHAR(45) NOT NULL,
+LOGO BLOB NULL,
+PRIMARY KEY (ID)
+);
+
+CREATE TABLE sql11432074.area
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    COUNTRY VARCHAR(30) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE sql11432074.manufacturer_area
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    MANUFACTURER_ID INT NOT NULL,
+    AREA_ID INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (MANUFACTURER_ID) REFERENCES sql11432074.manufacturer(ID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (AREA_ID) REFERENCES sql11432074.area(ID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+
+CREATE TABLE sql11432074.car_model_type
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    CAR_MODEL_NAME VARCHAR(30) NOT NULL,
+    CAR_MODEL_TYPE_NAME VARCHAR(30) NOT NULL,
+    MANUFACTURER_ID INT,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (MANUFACTURER_ID) REFERENCES sql11432074.manufacturer(ID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE sql11432074.engine_oil
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    OIL_NAME VARCHAR(30) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE sql11432074.specification
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    SPECIFICATION_NAME VARCHAR(30) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE sql11432074.engine_oil_tab
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    CAR_MODEL_TYPE_ID INT NOT NULL,
+    CAPACITY VARCHAR(30),
+    YEAR INT NOT NULL,
+    ENGINE_OIL_ID INT NOT NULL,
+    SPECIFICATION_ID INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CAR_MODEL_TYPE_ID) REFERENCES sql11432074.car_model_type(ID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (ENGINE_OIL_ID) REFERENCES sql11432074.engine_oil(ID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    FOREIGN KEY (SPECIFICATION_ID) REFERENCES sql11432074.specification(ID)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+create table sql11432074.manufacturer_form
+(
+    ID int not null AUTO_INCREMENT,
+    MANUFACTURER_AREA_ID int not null,
+    CAR_MODEL_TYPE_ID int not null,
+    constraint manufacturer_form_car_model_type_ID_fk
+        foreign key (CAR_MODEL_TYPE_ID) references sql11432074.car_model_type (ID),
+    constraint manufacturer_form_manufacturer_area_ID_fk
+        foreign key (MANUFACTURER_AREA_ID) references sql11432074.manufacturer_area (ID)
+);
+
+create unique index sql11432074.manufacturer_form_ID_uindex
+    on manufacturer_form (ID);
+
+alter table sql11432074.manufacturer_form
+    add constraint manufacturer_form_pk
+        primary key (ID);
+

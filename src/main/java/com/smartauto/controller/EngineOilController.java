@@ -1,8 +1,8 @@
 package com.smartauto.controller;
 
-import com.smartauto.dto.EngineOilResponseDto;
-import com.smartauto.dto.ManufacturerResponseDto;
+import com.smartauto.dto.ManufacturerFormDto;
 import com.smartauto.dto.RestResponse;
+import com.smartauto.entity.ManufacturerFormEntity;
 import com.smartauto.logger.MainLogger;
 import com.smartauto.service.EngineOilService;
 import io.swagger.annotations.Api;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 @RestController
@@ -30,15 +32,14 @@ public class EngineOilController {
     }
 
     @GetMapping(value = "/engineoil", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestResponse<ManufacturerResponseDto>> getFormDataByManufacturer(
+    public ResponseEntity<RestResponse<ManufacturerFormDto>> getFormDataByManufacturer(
             @Valid
             @ApiParam(value = "car", example = "Mercedes-Benz", required = true)
-            @RequestParam(name = "car") String car) {
+            @RequestParam(name = "car") String manufacturerName) {
 
         LOGGER.info("Request from getAccountsByCif");
-
-        ManufacturerResponseDto formData = engineOilService.findByCar(car);
-        RestResponse<EngineOilResponseDto> manufacturerResponse = new RestResponse("SUCCESS", formData);
+        ManufacturerFormDto formData = engineOilService.findByCar(manufacturerName);
+        RestResponse<ManufacturerFormDto> manufacturerResponse = new RestResponse("SUCCESS", formData);
         return new ResponseEntity(manufacturerResponse, HttpStatus.OK);
     }
 

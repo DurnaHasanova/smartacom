@@ -3,6 +3,8 @@ package com.smartauto.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +18,13 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ManufacturerResponseDto {
+public class ManufacturerFormDto {
 
-    List<String> area;
+    Set<String> area;
 
-    List<Integer> year;
+    Set<Integer> year;
 
-    List<String> model;
+    Set<String> model;
 
-    List<String> type;
+    Set<String> type;
 }
