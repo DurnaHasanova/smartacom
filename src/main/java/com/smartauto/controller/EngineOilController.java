@@ -36,7 +36,7 @@ public class EngineOilController {
 
     
 
-    
+
     @GetMapping(value = "/formdata", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestResponse<ManufacturerFormDataDto>> getFormData(
             @Valid
@@ -51,7 +51,6 @@ public class EngineOilController {
 
 
 
-  
     @GetMapping(value = "/formResult", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestResponse<ManufacturerFormResultDto>> getFormResult(
             @ApiParam(value = "carModelType", example = "C 180", required = true)
