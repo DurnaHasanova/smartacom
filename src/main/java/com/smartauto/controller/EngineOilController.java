@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping
 @Api(tags = "EngineOil")
@@ -31,6 +30,13 @@ public class EngineOilController {
         this.engineOilService = engineOilService;
     }
 
+
+    
+
+
+    
+
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/formdata", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestResponse<ManufacturerFormDataDto>> getFormData(
             @Valid
@@ -43,6 +49,9 @@ public class EngineOilController {
         return new ResponseEntity(manufacturerResponse, HttpStatus.OK);
     }
 
+
+
+    @CrossOrigin(origins = "*")
     @GetMapping(value = "/formResult", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RestResponse<ManufacturerFormResultDto>> getFormResult(
             @ApiParam(value = "carModelType", example = "C 180", required = true)
