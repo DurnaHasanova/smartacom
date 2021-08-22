@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Builder
 @Table(name = "MANUFACTURER_FORM")
-public class ManufacturerFormEntity {
+public class ManufacturerFormDataEntity {
 
     @Id
     @Column(name = "ID")
