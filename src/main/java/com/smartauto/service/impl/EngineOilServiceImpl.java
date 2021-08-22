@@ -1,5 +1,6 @@
 package com.smartauto.service.impl;
 
+import com.smartauto.dto.FormResultDto;
 import com.smartauto.dto.ManufacturerFormDataDto;
 import com.smartauto.dto.ManufacturerFormResultDto;
 import com.smartauto.entity.ManufacturerFormDataEntity;
@@ -44,14 +45,21 @@ public class EngineOilServiceImpl implements EngineOilService {
         List<ManufacturerFormResultEntity> manufacturerFormResultEntities =
                 manufacturerFormResultRepository.findAllCarModelType(carModelType);
         List<ManufacturerFormResultDto> manufacturerFormResultDtos = new ArrayList<>();
+
+        List<FormResultDto> formResultDtos = new ArrayList<>();
+
         for (ManufacturerFormResultEntity result: manufacturerFormResultEntities) {
-            ManufacturerFormResultDto manufacturerFormResultDto = new ManufacturerFormResultDto();
-            manufacturerFormResultDto.setCapacity(result.getCapacity());
-            manufacturerFormResultDto.setOil(result.getOilName());
-            manufacturerFormResultDto.setSpecification(result.getSpecification());
-            manufacturerFormResultDtos.add(manufacturerFormResultDto);
+            FormResultDto formResultDto = new FormResultDto();
+            formResultDto.setCapacity(result.getCapacity());
+            formResultDto.setOil(result.getOilName());
+            formResultDto.setSpecification(result.getSpecification());
+            formResultDtos.add(formResultDto);
 
         }
+        ManufacturerFormResultDto manufacturerFormResultDto = new ManufacturerFormResultDto();
+        manufacturerFormResultDto.setTabType("Engine");
+        manufacturerFormResultDtos.add(manufacturerFormResultDto);
+        manufacturerFormResultDto.setTabTypeResult(formResultDtos);
         return manufacturerFormResultDtos;
     }
 }

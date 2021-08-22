@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-
 @Data
 @Builder
 @Accessors(chain = true)
@@ -17,8 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ManufacturerFormResultDto {
+public class FormResultDto {
 
-    private String tabType;
-    private List<FormResultDto> tabTypeResult;
+    private Float capacity;
+
+    private String oil;
+
+    private String specification;
 }
